@@ -68,12 +68,8 @@ class Solution2 {
   public:
     string gcdOfStrings(string str1, string str2) {
         string result;
-        string_view shorter =
-            min(str1, str2, [](const string &a, const string &b) {
-                return a.length() < b.length();
-            });
         size_t length = gcd(str1.length(), str2.length());
-        string_view prefix = shorter.substr(0, length);
+        string_view prefix = str1.substr(0, length);
 
         if (isDivisible(str1, prefix) && isDivisible(str2, prefix)) {
             result = prefix;
