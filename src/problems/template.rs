@@ -9,22 +9,14 @@ impl Solution {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use rstest::rstest;
 
-    #[test]
-    fn positive_numbers() {
-        let result = Solution::add(1, 2);
-        assert_eq!(result, 3);
-    }
-
-    #[test]
-    fn negative_numbers() {
-        let result = Solution::add(1, -2);
-        assert_eq!(result, -1);
-    }
-
-    #[test]
-    fn zeros() {
-        let result = Solution::add(0, 0);
-        assert_eq!(result, 0);
+    #[rstest]
+    #[case(1, 2, 3)]
+    #[case(1, -2, -1)]
+    #[case(0, 0, 0)]
+    fn test_add(#[case] x: i32, #[case] y: i32, #[case] expected: i32) {
+        let result = Solution::add(x, y);
+        assert_eq!(result, expected);
     }
 }
