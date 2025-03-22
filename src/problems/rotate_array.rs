@@ -25,6 +25,34 @@ impl Solution2 {
     }
 }
 
+pub struct Solution3;
+
+impl Solution3 {
+    pub fn rotate(nums: &mut Vec<i32>, k: i32) {
+        let k = usize::try_from(k).unwrap();
+        let mut start_index = 0;
+        let mut count = 0;
+
+        while count < nums.len() {
+            let mut current_index = start_index;
+            let mut tmp = nums[current_index];
+
+            loop {
+                let next_index = (current_index + k) % nums.len();
+                std::mem::swap(&mut tmp, &mut nums[next_index]);
+                current_index = next_index;
+                count += 1;
+
+                if current_index == start_index {
+                    break;
+                }
+            }
+
+            start_index += 1;
+        }
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -45,6 +73,11 @@ mod tests {
         {
             let mut nums = nums.clone();
             Solution2::rotate(&mut nums, k);
+            assert_eq!(nums, expected);
+        }
+        {
+            let mut nums = nums.clone();
+            Solution3::rotate(&mut nums, k);
             assert_eq!(nums, expected);
         }
     }
